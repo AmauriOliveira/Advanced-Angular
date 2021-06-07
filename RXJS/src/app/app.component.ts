@@ -62,8 +62,34 @@ export class AppComponent implements OnInit {
       if (name === this.myName) {
         subscriber.next(`Olá ${this.myName}`);
         setTimeout(() => {
-          subscriber.next('Resposta de Observable com delay');
+          subscriber.next('Resposta de Observable com delay'); // ao chamar aa complete o que tem delay não vai ser executado
         }, 3000);
+        subscriber.complete();
+      } else {
+        subscriber.error('Ops, deu erro');
+      }
+    });
+  }
+
+  userObservable(name: string, mail: string): Observable<User> {
+    return new Observable(subscriber => {
+      if (name === 'admin') {
+        let user = new User(name, mail);
+        setTimeout(() => {
+          subscriber.next(user);
+        }, 1000);
+        setTimeout(() => {
+          subscriber.next(user);
+        }, 2000);
+        setTimeout(() => {
+          subscriber.next(user);
+        }, 3000);
+        setTimeout(() => {
+          subscriber.next(user);
+        }, 4000);
+        setTimeout(() => {
+          subscriber.complete();
+        }, 5000);
       } else {
         subscriber.error('Ops, deu erro');
       }
@@ -78,7 +104,36 @@ export class AppComponent implements OnInit {
 
     this.myObservable('Amauri').subscribe(
       result => console.log(result),
-      err => console.log(err)
+      error => console.log(error),
+      () => console.log('complete')
     );
+
+    // observer é uma estrutura de dados que tem instruções de como tratar as respostas
+    const observer = {
+      next: (value: any) => console.log('Next: ', value),
+      error: (error: any) => console.log('Error: ', error),
+      complete: () => console.log('Complete'),
+    };
+    // obs é um observable de string
+    const obs = this.myObservable('Amauri');
+    // passando um observador como parâmetro
+    obs.subscribe(observer);
+
+    const userObs = this.userObservable('admin', 'admin@admin.com');
+    const userSub = userObs.subscribe(observer);
+
+    setTimeout(() => {
+      userSub.unsubscribe();
+      console.log('Is subscribe closed: ', userSub.closed); //retorna true caso estiver fechado
+    }, 3500);
   }
+}
+
+export class User {
+  constructor(name: string, mail: string) {
+    this.name = name;
+    this.mail = mail;
+  }
+  name: string;
+  mail: string;
 }
