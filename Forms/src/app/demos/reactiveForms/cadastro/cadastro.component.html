@@ -48,6 +48,8 @@
             id="cpf"
             placeholder="CPF"
             class="form-control"
+            cpf
+            [textMask]="{ mask: MASKS.cpf.textMask }"
             formControlName="cpf"
             [ngClass]="{
               'is-invalid':
@@ -63,6 +65,15 @@
             "
           >
             <p>Preencha o campo CPF</p>
+          </span>
+          <span
+            class="text-danger"
+            *ngIf="
+              formGroup.get('cpf')?.errors?.cpf &&
+              (formGroup.get('cpf').touched || formGroup.get('cpf').dirty)
+            "
+          >
+            <p>CPF invalido</p>
           </span>
         </div>
       </div>

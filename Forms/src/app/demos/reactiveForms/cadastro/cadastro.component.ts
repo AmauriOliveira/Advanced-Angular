@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgBrazilValidators } from 'ng-brazil';
+import { MASKS, NgBrazilValidators } from 'ng-brazil';
 import { User } from './model/user';
 
 @Component({
@@ -12,6 +12,7 @@ export class CadastroComponent implements OnInit {
   formGroup: FormGroup;
   user: User;
   formResult: String;
+  public MASKS = MASKS;
 
   constructor(private formBuilder: FormBuilder) {}
 
