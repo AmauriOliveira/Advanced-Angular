@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgBrazilValidators } from 'ng-brazil';
 import { User } from './model/user';
 
 @Component({
@@ -10,21 +11,26 @@ import { User } from './model/user';
 export class CadastroComponent implements OnInit {
   formGroup: FormGroup;
   user: User;
+  formResult: String;
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
-      name: [''],
-      cpf: [''],
-      email: [''],
+      name: ['', Validators.required],
+      cpf: ['', [Validators.required, NgBrazilValidators.cpf]],
+      email: ['', [Validators.required, Validators.email]],
       password: [''],
       confirmPassword: [''],
     });
   }
 
   submitForm() {
-    this.user = Object.assign({}, this.user, this.formGroup.value);
-    console.log(JSON.stringify(this.user, null, 2));
+    if (this.formGroup.valid && this.formGroup.dirty) {
+      this.user = Object.assign({}, this.user, this.formGroup.value);
+      this.formResult = JSON.stringify(this.formGroup.value);
+    } else {
+      this.formResult = 'Não Submeteu';
+    }
   }
 }

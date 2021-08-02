@@ -5,6 +5,7 @@ import { VideoService } from '../video.service';
 
 interface Repository {
   name: string;
+  license: { name: string };
 }
 
 @Component({
@@ -14,6 +15,7 @@ interface Repository {
 })
 export class VideoDetailComponent implements OnInit {
   repo!: Observable<Repository>;
+  name: string = '';
   constructor(
     private activatedRoute: ActivatedRoute,
     private videoService: VideoService
@@ -22,7 +24,8 @@ export class VideoDetailComponent implements OnInit {
   ngOnInit(): void {
     const { params } = this.activatedRoute;
 
-    params.subscribe((data) => this.videoService.getRepository(data.name));
-    this.repo.subscribe((data) => console.log(data));
+    params.subscribe((data) => (this.name = data.name));
+    this.repo = this.videoService.getRepository(this.name).subscribe();
+
   }
 }

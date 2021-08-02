@@ -23,7 +23,21 @@
             placeholder="Nome"
             class="form-control"
             formControlName="name"
+            [ngClass]="{
+              'is-invalid':
+                formGroup.get('name').errors &&
+                (formGroup.get('name').touched || formGroup.get('name').dirty)
+            }"
           />
+          <span
+            class="text-danger"
+            *ngIf="
+              formGroup.get('name').errors &&
+              (formGroup.get('name').touched || formGroup.get('name').dirty)
+            "
+          >
+            <p>Preencha o campo nome</p>
+          </span>
         </div>
       </div>
       <div class="form-group">
@@ -35,7 +49,21 @@
             placeholder="CPF"
             class="form-control"
             formControlName="cpf"
+            [ngClass]="{
+              'is-invalid':
+                formGroup.get('cpf').errors &&
+                (formGroup.get('cpf').touched || formGroup.get('cpf').dirty)
+            }"
           />
+          <span
+            class="text-danger"
+            *ngIf="
+              formGroup.get('cpf')?.errors?.required &&
+              (formGroup.get('cpf').touched || formGroup.get('cpf').dirty)
+            "
+          >
+            <p>Preencha o campo CPF</p>
+          </span>
         </div>
       </div>
       <div class="form-group">
@@ -49,7 +77,30 @@
             placeholder="E-mail"
             class="form-control"
             formControlName="email"
+            [ngClass]="{
+              'is-invalid':
+                formGroup.get('email').errors &&
+                (formGroup.get('email').touched || formGroup.get('email').dirty)
+            }"
           />
+          <span
+            class="text-danger"
+            *ngIf="
+              formGroup.get('email')?.errors?.required &&
+              (formGroup.get('email').touched || formGroup.get('email').dirty)
+            "
+          >
+            <p>Preencha o campo e-mail</p>
+          </span>
+          <span
+            class="text-danger"
+            *ngIf="
+              formGroup.get('email')?.errors?.email &&
+              (formGroup.get('email').touched || formGroup.get('email').dirty)
+            "
+          >
+            <p>E-mail invalido</p>
+          </span>
         </div>
       </div>
       <div class="form-group">
@@ -83,10 +134,23 @@
       <div class="form-group">
         <div class="col-md-4 col-md-offset-2">
           <span>
-            <button id="register" type="submit" class="btn btn-success">
+            <button
+              id="register"
+              [disabled]="!formGroup.valid"
+              type="submit"
+              class="btn btn-success"
+            >
               Registrar
             </button>
           </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+          <p>Formulário valido: {{ formGroup.valid }}</p>
+          <p>Formulário tocado: {{ formGroup.touched }}</p>
+          <p>Formulário sujo: {{ formGroup.dirty }}</p>
+          <p>Formulário: {{ formResult }}</p>
         </div>
       </div>
     </div>
