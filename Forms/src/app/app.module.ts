@@ -14,6 +14,7 @@ import { FooterComponent } from './navegacao/footer/footer.component';
 import { SobreComponent } from './institucional/sobre/sobre.component';
 import { rootRouterConfig } from './app.routes';
 import { CadastroComponent } from './demos/reactiveForms/cadastro/cadastro.component';
+import { CadastroNovoComponent } from './demos/reactiveForms/cadastro-novo/cadastro-novo.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CadastroComponent } from './demos/reactiveForms/cadastro/cadastro.compo
     FooterComponent,
     SobreComponent,
     CadastroComponent,
+    CadastroNovoComponent,
   ],
   imports: [
     BrowserModule,

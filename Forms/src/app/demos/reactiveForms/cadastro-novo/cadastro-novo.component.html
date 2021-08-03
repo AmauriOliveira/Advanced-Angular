@@ -1,0 +1,129 @@
+<div
+  class="
+    container
+    main-container
+    d-flex
+    justify-content-center
+    align-items-center
+    flex-column
+  "
+>
+  <h4>Cadastro com validação avançada.</h4>
+  <hr />
+  <form novalidate (ngSubmit)="submitForm()" [formGroup]="formGroup">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label for="name" class="col-md-2 control-label d-inline"
+          >Nome completo</label
+        >
+        <div class="col-md-10">
+          <input
+            type="text"
+            id="name"
+            placeholder="Nome"
+            class="form-control"
+            formControlName="name"
+            [ngClass]="{ 'is-invalid': displayMessage.name }"
+          />
+          <span class="text-danger" *ngIf="displayMessage.name">
+            <p [innerHTML]="displayMessage.name"></p>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cpf" class="col-md-2 control-label d-inline">CPF</label>
+        <div class="col-md-10">
+          <input
+            type="text"
+            id="cpf"
+            placeholder="CPF"
+            class="form-control"
+            cpf
+            [textMask]="{ mask: MASKS.cpf.textMask }"
+            formControlName="cpf"
+            [ngClass]="{ 'is-invalid': displayMessage.cpf }"
+          />
+          <span class="text-danger" *ngIf="displayMessage.cpf">
+            <p [innerHTML]="displayMessage.cpf"></p>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-md-2 control-label d-inline"
+          >E-mail</label
+        >
+        <div class="col-md-10">
+          <input
+            type="email"
+            id="email"
+            placeholder="E-mail"
+            class="form-control"
+            formControlName="email"
+            [ngClass]="{ 'is-invalid': displayMessage.email }"
+          />
+          <span class="text-danger" *ngIf="displayMessage.email">
+            <p [innerHTML]="displayMessage.email"></p>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-md-2 control-label d-inline"
+          >Senha</label
+        >
+        <div class="col-md-10">
+          <input
+            type="password"
+            id="password"
+            placeholder="Senha"
+            class="form-control"
+            formControlName="password"
+            [ngClass]="{ 'is-invalid': displayMessage.password }"
+          />
+          <span class="text-danger" *ngIf="displayMessage.password">
+            <p [innerHTML]="displayMessage.password"></p>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password" class="col-md-2 control-label d-inline"
+          >Confirme a senha</label
+        >
+        <div class="col-md-10">
+          <input
+            type="password"
+            id="confirm-password"
+            placeholder="Confirme a senha"
+            class="form-control"
+            formControlName="confirmPassword"
+            [ngClass]="{ 'is-invalid': displayMessage.confirmPassword }"
+          />
+          <span class="text-danger" *ngIf="displayMessage.confirmPassword">
+            <p [innerHTML]="displayMessage.confirmPassword"></p>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+          <span>
+            <button
+              id="register"
+              [disabled]="!formGroup.valid"
+              type="submit"
+              class="btn btn-success"
+            >
+              Registrar
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+          <p>Formulário valido: {{ formGroup.valid }}</p>
+          <p>Formulário tocado: {{ formGroup.touched }}</p>
+          <p>Formulário sujo: {{ formGroup.dirty }}</p>
+          <p>Formulário: {{ formResult }}</p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
