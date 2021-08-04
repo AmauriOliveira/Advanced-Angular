@@ -11,6 +11,13 @@ const rootRouterConfig: Routes = [
     { path: 'sobre', component: SobreComponent },
     { path: 'cadastro', component: CadastroComponent },
     { path: 'cadastro-novo', component: CadastroNovoComponent },
+    {
+        path: 'produtos',
+        loadChildren: () =>
+            import('./demos/componentArchitecture/product.module').then(
+                m => m.ProductModule
+            ),
+    },
 ];
 
 @NgModule({

@@ -10,7 +10,7 @@ import { NavigationModule } from './navegacao/navigation.module';
 import { AppComponent } from './app.component';
 import { SobreComponent } from './institucional/sobre/sobre.component';
 
-import { AppRoutingModule } from './app.routes';
+import { AppRoutingModule } from './app.routing';
 import { CadastroComponent } from './demos/reactiveForms/cadastro/cadastro.component';
 import { CadastroNovoComponent } from './demos/reactiveForms/cadastro-novo/cadastro-novo.component';
 
@@ -34,4 +34,4 @@ import { CadastroNovoComponent } from './demos/reactiveForms/cadastro-novo/cadas
   providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
