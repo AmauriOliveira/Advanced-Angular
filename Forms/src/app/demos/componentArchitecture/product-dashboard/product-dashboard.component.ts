@@ -57,4 +57,7 @@ export class ProductDashboardComponent implements OnInit {
       },
     ];
   }
+  changeProduct(event: Product) {
+    event.active = !event.active;
+  }
 }
