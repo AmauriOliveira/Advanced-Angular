@@ -1,13 +1,33 @@
+import { ProductCardDetailsComponent } from './../components/product-card-details/product-card-details.component';
+import { ProductCountComponent } from './../components/product-count/product-count.component';
 import { Product } from './../models/product';
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
+import { fromEvent, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-dashboard',
   templateUrl: './product-dashboard.component.html',
   styles: [],
 })
-export class ProductDashboardComponent implements OnInit {
+export class ProductDashboardComponent implements OnInit, AfterViewInit {
   products: Product[];
+
+  @ViewChild(ProductCountComponent, { static: false })
+  count: ProductCountComponent;
+
+  @ViewChild('testToken', { static: false })
+  messageScreen: ElementRef;
+
+  @ViewChildren(ProductCardDetailsComponent)
+  buttons: QueryList<ProductCardDetailsComponent>;
 
   constructor() {}
 
@@ -57,6 +77,23 @@ export class ProductDashboardComponent implements OnInit {
       },
     ];
   }
+
+  ngAfterViewInit(): void {
+    console.log(JSON.stringify(this.count.products, null, 2));
+
+    let textClick: Observable<any> = fromEvent(
+      this.messageScreen.nativeElement,
+      'click'
+    );
+
+    textClick.subscribe(() => {
+      alert('clicou no texto');
+      return;
+    });
+
+    this.buttons.forEach(p => console.log(p.product));
+  }
+
   changeProduct(event: Product) {
     event.active = !event.active;
   }

@@ -1,5 +1,5 @@
 <div class="container main-container">
-  <h1>Lista de produtos</h1>
+  <h1 #testToken>Lista de produtos</h1>
   <product-count [products]="products"></product-count>
   <div class="mt-4 row text-center">
     <product-card-details
@@ -7,7 +7,8 @@
       *ngFor="let product of products"
       [product]="product"
       (productEmitter)="changeProduct($event)"
-      >{{ product }}</product-card-details
-    >
+      ><h5 class="empaty">Ou vá até uma de nossas lojas</h5>
+      <h5 class="hasProduct">Corre que vai acabar</h5>
+    </product-card-details>
   </div>
 </div>
